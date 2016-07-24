@@ -75,6 +75,20 @@ This is going to vary depending on where you start, and you can make every MINOR
 ### Upgrade the Agents ###
 
 * Upgrade the agents. You can do this by hand, with [puppetlabs/puppet_agent](https://forge.puppet.com/puppetlabs/puppet_agent), MCO, or any other tool at your disposal. Identify which master upgrades do not require an agent, as this is generally not required when upgrading PATCH versions and even some MINOR versions.
+ * [puppet_agent requirements](https://forge.puppet.com/puppetlabs/puppet_agent/readme#setup-requirements) - `stringify_facts` defaults to true
+
+```
+[rnelson0@dns ~]$ puppet --version
+3.8.7
+[rnelson0@dns ~]$ sudo puppet agent -t --environment=puppet_agent
+<stuff>
+[rnelson0@dns ~]$ puppet --version
+-bash: /usr/bin/puppet: No such file or directory
+[rnelson0@dns ~]$ /opt/puppetlabs/puppet/bin/puppet --version
+4.5.2
+```
+
+* This may leave other puppetlabs repos in place (i.e. `puppetlabs-release-6-11.noarch` on EL6).
 * After testing is successful and a sufficient burn-in period, clean up your snapshots and any other temporary measure you put in place.
 
 ### Repeat ###
