@@ -1,4 +1,4 @@
-## Upgrade from Puppet 3.x to Puppet 4.x (jfdi) ##
+## Enjoying the Journey from Puppet 3.x to 4.x ##
 
 ### What are we talking about? Who does this apply to? ###
 
