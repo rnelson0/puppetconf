@@ -43,10 +43,10 @@ This means all of them, not just for the latest version. If you skipped a total 
 ### Stairstep Roadmap ###
 This is going to vary depending on where you start, and you can make every MINOR a release even if you don't need to. For example, here are the minimum stairsteps required between 3.6.x and 4.5.x:
 
- * 3.6.x -> 3.8.4
- * 3.8.4 w/ Future Parser
- * 3.8.4 -> 4.0.0
- * 4.0.0 -> 4.5.0
+ * 3.6.x -> 3.8.x
+ * 3.8.x w/ Future Parser
+ * 3.8.x -> 4.0.0
+ * 4.0.0 -> 4.latest
 
 ### Validate/Create rspec tests ###
 
@@ -62,6 +62,7 @@ This is going to vary depending on where you start, and you can make every MINOR
 * Create a new branch against for the next stairstep version, e.g. `3.8.4`.
 * Ensure you are testing against this target version in addition to your current version, e.g. `~>3.6` and `~>3.8`. (Include Gemfile examples)
 * Identify failing tests, refactor as needed.
+* Upgrade modules as early as possible. Be aware of the required Puppet version for a module version, and look out for defunct or migrated modules, such as those transferred to [Vox Pupuli](https://voxpupuli.org/).
 * Move forward when tests are green for current and next version.
 
 ### Snapshot and Upgrade the Master ###
@@ -117,7 +118,9 @@ Some lessons learned from POSS/PE upgrades
  * `%{}` in 3.x and in 4.5 resolves to the empty string. This is often used to prevent variable interpolation, as in `%%{}{environment}` to generate the string `%{environment}`. There was a regression in between those versions and it started returning the scope, giving strings like `%<#Hiera:7329A802#>{environment}`. Use `%{::}` instead, as in `%%{::}{environment}
  * Additionally, some versions expect `::` prepends to variables and others don't. This may affect your `datadir` value in `hiera.yaml`. Change `%{environment}` to `%{::environment}`.
 * Don't change too much at once if you can help it. The more variables you change at once, the more difficult troubleshooting is. Try not to change your fleet's distro version during the upgrade unless you really like chasing down issues.
-* Review modules and their supported versions. Some may be incorrect, or have loose assumptions (Puppet > 3). Try to avoid jumping major versions during the upgrade if you can, or expect some additional troubleshooting.
+* Review modules and their supported versions. Some may be incorrect, or have loose assumptions (Puppet > 3). When you upgrade across major versions during refactoring, expect it to require additional troubleshooting time and effort. Generally you want to do this early, but if a particular module gives you problems, it may make sense to wait until the master upgrades are done first.
+ * If the latest module reports version `999.999.999`, it is probably defunct. Check out the readme for more information!
+ * There are quite a few tools to [assist with automating version upgrades in your Puppetfile](https://github.com/puppetlabs/r10k/blob/master/doc/updating-your-puppetfile.mkd#automatic-updates).
 * The hiera eyaml gem will be removed during the upgrade to the 4.0 puppetserver - more accurately, the new puppetserver environment will not have it present. If you only have eyaml configured, enable the yaml backend as well and ensure that the master itself does not rely on any eyaml-only data. The first agent run on the master can redeploy the gem (with [puppet/hiera](https://forge.puppet.com/puppet/hiera) or similar) before an agent connects that requires eyaml data. This does not recur when you upgrade within the 4.x chain.
 
 ### Tools ###
