@@ -33,6 +33,8 @@ What's the high level plan to get from here to there?
 * Upgrade the Agents
 * Repeat with each stairstep until you are on the latest and greatest!
 
+Puppet recently created some [Upgrade docs](https://docs.puppet.com/upgrade/) that go into great detail of the Upgrade process. Take time to review their guide, it's very complete and keeps being updated to match the latest version available.
+
 Alternatively, if we practice immutable infrastructure, or want to practice it in a limited fashion, some steps can be skipped or simplified by **replacing** nodes running Puppet 3 with equivalent nodes running Puppet 4. We'll note those spots as we go.
 
 ### Release notes ###
