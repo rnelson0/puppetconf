@@ -129,5 +129,11 @@ The tools are constantly improving, so if you haven't looked in a while, check i
 * There are a number of catalog diff tools (including [the diffs](https://forge.puppet.com/modules?utf-8=%E2%9C%93&sort=rank&q=catalog) and [a viewer](https://github.com/camptocamp/puppet-catalog-diff-viewer)) to inspect the differences between catalogs received from different versions of Puppet.
 * [puppet-ghostbuster](https://github.com/camptocamp/puppet-ghostbuster) helps you find "dead code" that you may want to prune before you start on your refactoring journey.
 
+### Links ###
+Additional information on Puppet 4 and Migrations
+
+* [Whirlwind Tour of Puppet 4](http://www.slideshare.net/ripienaar/whirlwind-tour-of-puppet-4) by the poet, [R.I. Pienaar](https://twitter.com/ripienaar)
+
 ### Q&A ###
 I am glad to try and answer any questions you have about the upgrade process. I would also like to encourage those in the audience to share their knowledge!
+
