@@ -1,6 +1,6 @@
 <!SLIDE center subsection>
 # Enjoying the Journey from Puppet 3.x to 4.x
-(jfdi)
+.center (jfdi)
 
 <!SLIDE center>
 Rob Nelson
