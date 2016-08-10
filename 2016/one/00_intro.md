@@ -3,6 +3,6 @@
 <center>(jfdi)</center>
 
 <!SLIDE center>
-Rob Nelson
-@rnelson0
-http://rnelson0.com
+Rob Nelson<br>
+@rnelson0<br>
+[http://rnelson0.com]
