@@ -109,7 +109,7 @@ This is going to vary depending on where you start, and you can make every MINOR
 
 Some lessons learned from POSS/PE upgrades
 
-* PE Classifier - You can expect some changes as you move forward. You can review the [Preconfigured Node Groups documentation](https://docs.puppet.com/pe/latest/console_classes_groups_preconfigured_groups.html) yourself, but I recommend engaging Support promptly. It can be difficult to translate the classification differences into impacts to your business.
+* PE Classifier - You can expect some changes as you move forward. You can review the [Preconfigured Node Groups documentation](https://docs.puppet.com/pe/latest/console_classes_groups_preconfigured_groups.html) yourself, but I recommend engaging Support promptly. It can be difficult to translate the classification differences into impacts to your business. There is even a [Puppet Enterprise Upgrade Service](https://m.box.com/shared_item/https%3A%2F%2Fpuppet.app.box.com%2Fs%2Fcrb2vv3z6ssc4dxhe8kwwt3yiba3jyt7) offering now!
 * PE 3 Bundled Ruby - If you run EL6 and want to get away from Ruby 1.8.7, it was possible to use the PE Ruby. Use rbenv/rvm instead, or update to something with a newer Ruby on the system (EL7 at least has Ruby 2.0!). [PUP-6106](https://tickets.puppetlabs.com/browse/PUP-6106)
 * The [`pe_puppetserver_gem`](https://forge.puppet.com/puppetlabs/pe_puppetserver_gem) is out, [`puppetserver_gem`](https://forge.puppet.com/puppetlabs/puppetserver_gem) is in.
 * PE includes support. Upgrades are a great reason to engage Support!
