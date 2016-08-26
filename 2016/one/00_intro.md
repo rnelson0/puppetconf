@@ -4,8 +4,8 @@
 
 <!SLIDE center>
 <center>Rob Nelson</center>
-<center>[@rnelson0](https://twitter.com/rnelson0)</center>
-<center>[http://rnelson0.com](http://rnelson0.com)</center>
+<center>[Vox Pupuli](https://voxpupuli.org) Contributor</center>
+<center>[@rnelson0](https://twitter.com/rnelson0), [http://rnelson0.com](http://rnelson0.com)</center>
 
 <!SLIDE center>
 # What are we talking about today?
