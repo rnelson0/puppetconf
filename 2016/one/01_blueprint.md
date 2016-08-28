@@ -1,6 +1,6 @@
 <!SLIDE incremental>
 # Blueprint
-What's the high level plan to get from here to there.
+What's the high level plan to get from here to there?
 
 * Start with Puppet 3.x
 * Read the release notes

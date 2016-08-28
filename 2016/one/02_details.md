@@ -96,7 +96,7 @@ Rspec testing can be tricky, no lie. But it doesn't have to be. Start simple and
 
     @@@ Console nochrome
     $ grep PUPPET Gemfile
-      gem "puppet", ENV['PUPPET_GEM_VERSION'] || '~> 4.0'gem "puppet", ENV['PUPPET_GEM_VERSION'] || '~> 4.0'
+      gem "puppet", ENV['PUPPET_GEM_VERSION'] || '~> 4.0'
 
     [rnelson0@build controlrepo]$ export PUPPET_GEM_VERSION='~>3.8'; bundle update
     Installing puppet 3.8.7 (was 4.6.0)
@@ -111,3 +111,77 @@ Rspec testing can be tricky, no lie. But it doesn't have to be. Start simple and
 ~~~SECTION:notes~~~
 Remember to export the variable, or you'll have to prepend PUPPET_GEM_VERSION on every usage of bundle.
 ~~~ENDSECTION~~~
+
+<!SLIDE incremental>
+# Snapshot and Upgrade the Master
+
+Not all upgrades will go well. Make sure we have a way back!
+
+* Snapshot (or equivalent) the master, and any canary nodes we have.
+* Restrict access to the master. Don't push bad catalogs to nodes, could cause outages.
+ * Block tcp/8140 with a firewall.
+ * Revoke certificates for non-canary nodes (roll the snapshot back to revert).
+ * Revoke the CA, generate a new CA and new agent nodes.
+ * Disable puppet agent on nodes with orchestration, ensure it doesn't turn back on in the middle of your upgrade!
+* There's no right way, just find a way that works well for you.
+* Upgrade the master.
+* Test the master against itself, `puppet agent -t`.
+* Test the canary nodes with `puppet agent -t` as well.
+* If anything fails, collect logs, revert to your snapshots, unblock connection to the master, and go back to the *Refactor* steps to fix it before trying again.
+* Optional: Revert to snapshot, remove the block, and upgrade the master again without the block - only when you're ready to move forward.
+* There's no right way, just a way that works for you!
+
+<!SLIDE incremental>
+
+# Upgrade the Agents
+
+A very non-complete list of methods:
+
+* [puppetlabs/puppet_agent](https://forge.puppet.com/puppetlabs/puppet_agent) ([requirements](https://forge.puppet.com/puppetlabs/puppet_agent/readme#setup-requirements)) allows you to update agents on their next checkin.
+* MCollective or other orchestration.
+* Replace nodes with new instances running the newer agent.
+* By hand.
+* Some combination of methods.
+* You can skip this step on PATCH versions and some MINOR versions
+
+<!SLIDE >
+
+# Puppet Agent in action
+
+    @@@ Console nochrome
+    [rnelson0@dns ~]$ puppet --version
+    3.8.7
+    [rnelson0@dns ~]$ sudo puppet agent -t --environment=puppet_agent
+    <run output>
+    -bash: /usr/bin/puppet: No such file or directory
+    [rnelson0@dns ~]$ /opt/puppetlabs/puppet/bin/puppet --version
+    4.5.2
+
+There are known issues, such as leaving other puppetlabs repos in place ([MODULES-3805](https://tickets.puppetlabs.com/browse/MODULES-3805) and [3806](https://tickets.puppetlabs.com/browse/MODULES-3806)), but hard to argue with a puppetized solution!
+
+~~~SECTION:notes~~~
+Puppet 4's binary is in a new location, which makes it easy to know when the upgrade works properly!
+~~~ENDSECTION~~~
+
+<!SLIDE >
+
+# Repeat!
+
+* After you're done with one upgrade, start working on the next!
+* Repeat the Refactor / Snapshot / Upgrade steps only till you hit your target version.
+
+<!SLIDE incremental>
+
+# Keep Up
+
+* Once you're done, you're not done! Start refactoring to take advantage of Puppet 4 language improvements including, but not limited to:
+ * Replace `create_resources()` with [iteration](https://docs.puppet.com/puppet/latest/reference/lang_iteration.html).
+ * Replace `validate_*()` with [data types](https://docs.puppet.com/puppet/latest/reference/lang_data.html).
+ * Simplified resource wrappers with [*](https://docs.puppet.com/puppet/latest/reference/lang_resources_advanced.html#setting-attributes-from-a-hash) and [+](https://docs.puppet.com/puppet/latest/reference/lang_expressions.html#merging) operators.
+ * Improved [per-expression default attributes](https://docs.puppet.com/puppet/latest/reference/lang_resources_advanced.html#per-expression-default-attributes).
+
+* PE has quarterly upgrades, POSS has more frequent updates.
+ * Try not to get more than 2 MINORs behind.
+ * Anticipate new versions by changing your Gemfile/rspec-tests to test against puppet version `~>4.0` (latest 4.x) and run `bundle update` before manual tests. Your test setup won't be surprised when `v4.next` is released.
+
+* Aim for master upgrade times of <1h - it's possible!
