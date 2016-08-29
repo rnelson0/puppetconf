@@ -9,6 +9,7 @@ Some lessons learned from POSS/PE upgrades...
 * PE Classifier - You can expect some changes as you move forward. Review the [Preconfigured Node Groups documentation](https://docs.puppet.com/pe/latest/console_classes_groups_preconfigured_groups.html) yourself, engage support if you run into issues.
 
 * Bundled Ruby - If you run an older distro (*cough* EL6 *cough*) and want to get away from Ruby 1.8.7, it is possible to use the PE or AIO Ruby. You can use it in a pinch, but I highly recommend you use rbenv/rvm instead, or update to something with a newer Ruby on the system (EL7 at least has Ruby 2.0!). [PUP-6106](https://tickets.puppetlabs.com/browse/PUP-6106)
+ * Don't do either of these on your master. Ever!
 
 * [`pe_puppetserver_gem`](https://forge.puppet.com/puppetlabs/pe_puppetserver_gem) is out, [`puppetserver_gem`](https://forge.puppet.com/puppetlabs/puppetserver_gem) is in.
 

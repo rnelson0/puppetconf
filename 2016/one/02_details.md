@@ -7,7 +7,6 @@
 * Stay up to date - less reading and resolving conflicting notes.
 
 
-
 <!SLIDE >
 
 # Stairstep Roadmap
@@ -24,7 +23,6 @@ For example, the steps between 3.6.x and 4.5.x:
 * 4.0.0 -> 4.latest
 
 
-
 <!SLIDE incremental>
 
 # Validate / Create rspec tests
@@ -32,6 +30,7 @@ For example, the steps between 3.6.x and 4.5.x:
 * No tests, no assured behavior!
 * Generate modules with [puppet-module-skeleton](https://github.com/garethr/puppet-module-skeleton/blob/master/skeleton/.travis.yml) and you get a free rspec setup, too.
 * Never written an rspec-puppet test? [puppet-retrospec](https://github.com/nwops/puppet-retrospec) can help! Generates naive tests that need tuned, but a great place to start.
+* Determine what kinds of tests you need - unit, acceptance, integration, more?
 * Tons of blog posts on testing.
 * Make sure your existing tests pass before changing the code.
 * Turn on Future Parser and Strict Variables as soon as you hit 3.8.x
@@ -86,6 +85,7 @@ Rspec testing can be tricky, no lie. But it doesn't have to be. Start simple and
 * Test against this target version in addition to your current version, e.g. `~>3.6` and `~>3.8`.
 * Identify failing tests, refactor as needed.
 * Upgrade modules as early as possible. Be aware of the required Puppet version for a module version, and look out for defunct or migrated modules, such as those transferred to [Vox Pupuli](https://voxpupuli.org/).
+ * Version 999.999.999 means defunct (more later).
 * Move forward when tests are green for current and next version.
 
 
@@ -119,9 +119,10 @@ Not all upgrades will go well. Make sure we have a way back!
 
 * Snapshot (or equivalent) the master, and any canary nodes we have.
 * Restrict access to the master. Don't push bad catalogs to nodes, could cause outages.
- * Block tcp/8140 with a firewall.
+ * Set up an exact duplicate environment and upgrade there.
+ * Selectively block tcp/8140 with a firewall.
  * Revoke certificates for non-canary nodes (roll the snapshot back to revert).
- * Revoke the CA, generate a new CA and new agent nodes.
+ * Revoke the CA, generate a new CA and new agent certs.
  * Disable puppet agent on nodes with orchestration, ensure it doesn't turn back on in the middle of your upgrade!
 * There's no right way, just find a way that works well for you.
 * Upgrade the master.
@@ -182,6 +183,7 @@ Puppet 4's binary is in a new location, which makes it easy to know when the upg
 
 * PE has quarterly upgrades, POSS has more frequent updates.
  * Try not to get more than 2 MINORs behind.
+ * The less frequently you do something, the more painful it us. Upgrade early and upgrade often!
  * Anticipate new versions by changing your Gemfile/rspec-tests to test against puppet version `~>4.0` (latest 4.x) and run `bundle update` before manual tests. Your test setup won't be surprised when `v4.next` is released.
 
 * Aim for master upgrade times of <1h - it's possible!
