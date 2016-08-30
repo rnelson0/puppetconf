@@ -130,7 +130,10 @@ Not all upgrades will go well. Make sure we have a way back!
 * Test the canary nodes with `puppet agent -t` as well.
 * If anything fails, collect logs, revert to your snapshots, unblock connection to the master, and go back to the *Refactor* steps to fix it before trying again.
 * Optional: Revert to snapshot, remove the block, and upgrade the master again without the block - only when you're ready to move forward.
-* There's no right way, just a way that works for you!
+
+~~~SECTION:notes~~~
+There's no right way, just a way that works for you!
+~~~ENDSECTION~~~
 
 <!SLIDE incremental>
 
@@ -171,9 +174,13 @@ Puppet 4's binary is in a new location, which makes it easy to know when the upg
 * After you're done with one upgrade, start working on the next!
 * Repeat the Refactor / Snapshot / Upgrade steps only till you hit your target version.
 
+
 <!SLIDE incremental>
 
-# Keep Up
+# Keep up
+
+<center><blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Software being &quot;Done&quot; is like lawn being &quot;Mowed&quot;.</p>&mdash; Jim Benson (@ourfounder) <a href="https://twitter.com/ourfounder/status/770075137332932608">August 29, 2016</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></center>
 
 * Once you're done, you're not done! Start refactoring to take advantage of Puppet 4 language improvements including, but not limited to:
  * Replace `create_resources()` with [iteration](https://docs.puppet.com/puppet/latest/reference/lang_iteration.html).
@@ -186,4 +193,6 @@ Puppet 4's binary is in a new location, which makes it easy to know when the upg
  * The less frequently you do something, the more painful it us. Upgrade early and upgrade often!
  * Anticipate new versions by changing your Gemfile/rspec-tests to test against puppet version `~>4.0` (latest 4.x) and run `bundle update` before manual tests. Your test setup won't be surprised when `v4.next` is released.
 
-* Aim for master upgrade times of <1h - it's possible!
+~~~SECTION:notes~~~
+Aim for master upgrade times of <1h - it's possible!
+~~~ENDSECTION~~~
