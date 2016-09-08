@@ -28,6 +28,7 @@ Additional information on Puppet 4 and Migrations
 * [Martin Alfke](https://twitter.com/tuxmea)
 * [David Schmitt](https://twitter.com/dev_el_ops)
 * [Alex Harden](https://twitter.com/aharden)
+* [Eric Sorenson](https://twitter.com/ahpook)
 
 
 

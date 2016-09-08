@@ -9,7 +9,7 @@ What's the high level plan to get from here to there?
 * Refactor until your current version passes all tests
 * Replace / Snapshot and Upgrade the Master
 * Upgrade the Agents
-* Repeat the steps for each stairstep until you are get to 4.current
+* Repeat the steps for each stairstep until you are get to 4.latest
 
 
 ~~~SECTION:notes~~~

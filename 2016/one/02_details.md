@@ -14,14 +14,19 @@
 
 Varies depending on your starting point. Find the minimum steps; you can usually skip some MINOR releases.
 
-Enable the Future Parser before you hit 4.0.
+Enable the Future Parser before you hit 4.x.
 
-For example, the steps between 3.6.x and 4.5.x:
+For example, the steps between 3.6.x and 4.5.x (Open Source):
 
 * 3.6.x -> 3.8.x
 * 3.8.x w/Future Parser
-* 3.8.x -> 4.0.0
-* 4.0.0 -> 4.latest
+* 3.8.x -> 4.5.x
+
+~~~SECTION:notes~~~
+With Open Source, you can pretty much jump from 3.8 to the latest 4.x. In fact, you probably do NOT want to go to 4.0 and then jump again, as there are bugs and config file changes and so on that may bite you.
+
+If you are using Puppet Enterprise, however, check the KB for the upgrade stairsteps required or engage support if needed. The PE extras sometimes require intermediate PE editions to upgrade themselves before reaching your target version.
+~~~ENDSECTION~~~
 
 
 
