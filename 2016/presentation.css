@@ -17,3 +17,21 @@ h1, h2 {
   bottom: 120px;
   content: url(jay_small.png);
 }
+
+/* Render hidden headlines so that when we print with wkhtmltopdf, we can use section
+   titles for page headers.  it would make sense to put this in the print section, but
+   then you get a weird double headline when previewing a print in the browser. */
+
+/* make this invisible as possible, while still rendering so that wkhtmltopdf doesn't ignore it */
+h1.section_title {
+  color: transparent !important;
+  opacity: 0 !important;
+  font-size: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* because the above section headers are h1 elements rendered only in print */
+.content:not(.cover) h1:not(.section_title) {
+  border-bottom: 3px solid #222;
+}
