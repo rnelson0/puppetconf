@@ -1,6 +1,6 @@
 <!SLIDE incremental>
 # Blueprint
-What's the high level plan to get from here to there?
+What is the high level plan to get from here to there?
 
 * Start with Puppet 3.x
 * Read the release notes
@@ -13,10 +13,11 @@ What's the high level plan to get from here to there?
 
 
 ~~~SECTION:notes~~~
-This applies whether you're using an all-in-one or split setup. I'll try and point out where things would change between the two types. And if you're using masterless, a lot will still apply, except for the master parts, of course.
+It doesn't really change the overall blueprint if you have a single all-in-one master, a Master of Master
+s, or a distributed component setup - just requires a little more planning on certain steps. I will try and point out where things would change between the two types. And if you are using masterless, a lot will still apply, except for the master parts, of course.
 
-If you're on Puppet 2.x, you need to get to 3.x first! But that's not this talk. There were some good talks about this at PuppetConf 2015.
+If you are on Puppet 2.x, you need to get to 3.x first! But that is not this talk. There were some good talks about this at PuppetConf 2015.
 
-If you're actually starting new - start with Puppet 4! And then you might want to go attend another session :)
+If you are actually starting new - start with Puppet 4! And then you might want to go attend another session :)
+
 ~~~ENDSECTION~~~
-
