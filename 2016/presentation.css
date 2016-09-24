@@ -1,14 +1,15 @@
 #preso,
 .slide {
-    width: 1280px !important;
-    height: 800px !important;
+  background: black;
+  width: 1280px !important;
+  //height: 960px !important;
 }
 .content {
-  color: black;
+  color: orange;
   font-family: helvetica, arial;
 }
 h1, h2 {
-  color: rgb(79, 180, 226);
+  color: orange;
   font-family: Georgia;
 }
 .content::after {

@@ -6,16 +6,16 @@
 
 <!SLIDE center>
 <center>Rob Nelson</center>
-<center>[Vox Pupuli](https://voxpupuli.org) and [puppet-lint](http://puppet-lint.com) Contributor</center>
+<center>Contributor to [Vox Pupuli](https://voxpupuli.org), [puppet-lint](http://puppet-lint.com)</center>
 <center>[@rnelson0](https://twitter.com/rnelson0), [http://rnelson0.com](http://rnelson0.com)</center>
 
 
 
-<!SLIDE center>
+<!SLIDE incremental>
 # What are we talking about today?
 * Upgrade our Puppet master(s) and agents to Puppet 4.x
-* Refactor our code base for Puppet 4, remove Puppet 2- and 3-isms.
-* Not always a linear progression, we may visit steps multiple times.
+* Refactor our code base for Puppet 4, remove Puppet 2- and 3-isms
+* Tips, Tricks, and Tools
 
 
 
@@ -24,33 +24,33 @@
 # Why?
 
 * Puppet 4 is old! First released March, 2015.
-* Or: Puppet 3 is old! EOS on [December 31, 2016](https://puppet.com/misc/puppet-enterprise-lifecycle). When the last PE 3.x is EOS, Opensource will be EOS as well.
-* Lots of new things in the Puppet 4 language (3.x - Future Parser) to take advantage of. Iteration, typed variables, etc.
-* Application Orchestration for PE users.
- * FOSS will eventually get AO. Some [FOSS implementations](https://github.com/ripienaar/mcollective-choria) are appearing, too.
-* Modules are starting to only support Puppet 4. 
-* Let EOL Ruby versions (1.8, 1.9, early 2.x) and Puppet w/Passenger go!
-* Don't slow down the DevOps. Stairstep upgrades get harder and harder all the time. Stay current, it makes each upgrade minutes long instead of hours, days, or weeks.
+* Puppet 3 is really old! End Of Support on [December 31, 2016](https://puppet.com/misc/puppet-enterprise-lifecycle).
+* Puppet 4 language improvements (3.x - Future Parser).
+* Application Orchestration
+ * PE first, FOSS eventually. Some free implementations (such as[choria](https://github.com/ripienaar/mcollective-choria)) out there.
+* Puppet 4 only modules.
+* No more EOL Ruby versions (1.8, 1.9, early 2.x) or Puppet w/Passenger!
+* Do not slow down the DevOps. Stairstep upgrades get harder and harder all the time, stay current.
 * Puppet 5 is coming!
 
 ~~~SECTION:notes~~~
-Puppet 4 isn't new anymore. But it is the most current version and you want to get on it before Puppet 5 is released.
+Puppet 4 is not new anymore. Get there  before Puppet 5 is released.
 
 Tons of talks on Puppet 4 language here at PuppetConf, check them out!
 
-Puppet 3 won't turn into a pumpkin on 1/1/2017, but you may find yourself stuck between a rock and a hard place when you need a newer version of a module that requires Puppet 4, probably because it is taking advantage of the language.
+Puppet 3 will not turn into a pumpkin on 1/1/2017, but you may find yourself stuck between a rock and a hard place when you need a newer version of a module that requires Puppet 4 language constructs.
 
 Puppetserver is the future and Ruby moves fast, take advantage of the AIO builds when possible.
 ~~~ENDSECTION~~~
 
 
 
-<!SLIDE center>
+<!SLIDE >
 # Who does this apply to?
 * Puppet Enterprise Users
 * Puppet Opensource Users
 * Masterful and Masterless setups
 
 ~~~SECTION:notes~~~
-This is admittedly focused on a masterful setup, but if you have a masterless setup, a majority will still apply. We'll try and point it out as we go, and feel free to ask questions or point things out as we go.
+The talk is mostly focused on a masterful setup, but if you have a masterless setup, a most will still apply.
 ~~~ENDSECTION~~~

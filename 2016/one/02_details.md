@@ -3,25 +3,21 @@
 # Release Notes
 
 * All of them - not just the latest version.
-* If you skipped a dozen major/minor/patch versions, you have lots to read and collate. If that sounds horrible, it is!
+* Lots to read if you skipped a dozen major/minor/patch versions. Look for conflicts.
 * Stay up to date - less reading and resolving conflicting notes.
-* This informs your version stairstep plans.
+* Your findings inform your version stairstep plans.
 
 
 
-<!SLIDE >
+<!SLIDE incremental>
 
 # Stairstep Roadmap
 
-Varies depending on your starting point. Find the minimum steps; you can usually skip some MINOR releases.
-
-Enable the Future Parser before you hit 4.x.
-
-For example, the steps between 3.6.x and 4.5.x (Open Source):
-
-* 3.6.x -> 3.8.x
-* 3.8.x w/Future Parser
-* 3.8.x -> 4.latest
+* Varies depending on your starting point.
+* Find the minimum steps; you can usually skip some MINOR releases.
+* Enable the Future Parser before you hit 4.x.
+* PE: Requires intermediate versions or not-in-place migration
+* FOSS: Go straight to 4.latest
 
 ~~~SECTION:notes~~~
 With Open Source, you can pretty much jump from 3.8 to the latest 4.x. In fact, you probably do NOT want to go to 4.0 and then jump again, as there are bugs and config file changes and so on that may bite you.
@@ -32,31 +28,54 @@ If you are using Puppet Enterprise, however, check the KB/release notes for the 
 
 
 <!SLIDE incremental>
+# FOSS Example
+ 
+* 3.6.x -> 3.8.x
+* 3.8.x w/Future Parser
+* 3.8.x -> 4.latest
 
-# Validate / Create rspec tests
+
+
+
+<!SLIDE incremental>
+# PE Example
+
+* 3.7.2 -> 3.8.6
+* 3.8.3 w/Future Parser
+* 3.8.3 -> 2015.3.3
+* 2015.3.3 -> 2016.2.1
+
+
+
+<!SLIDE incremental>
+
+# Validate / Create tests
 
 * No tests, no assured behavior!
 * Generate modules with [puppet-module-skeleton](https://github.com/garethr/puppet-module-skeleton/blob/master/skeleton/.travis.yml) and you get a free rspec setup, too.
-* Never written an rspec-puppet test? [puppet-retrospec](https://github.com/nwops/puppet-retrospec) can help! Generates naive tests that need tuned, but a great place to start.
+* Never written an rspec-puppet test? [puppet-retrospec](https://github.com/nwops/puppet-retrospec) can help! Generates naive tests that need tuned.
 * Determine what kinds of tests you need - unit, acceptance, integration, more?
-* Tons of blog posts on testing.
 * Make sure your existing tests pass before changing the code.
 * Turn on Future Parser and Strict Variables as soon as you hit 3.8.x
- * You can do it earlier, but some versions have bugs.
+* Catalog Diffs - beyond rspec tests
 
 ~~~SECTION:notes~~~
-If you do not have any tests yet, go see a talk about it. "Turning Pain Into Gain" at 2:30PM today and "The Future of Testing Puppet Code" tomorrow at 3:45PM.
+If you do not have any tests yet, please attend a testing talk! "Turning Pain Into Gain" at 2:30PM today and "The Future of Testing Puppet Code" tomorrow at 3:45PM.
 
 Tests do not guarantee success, but can identify many regressions and determine when failure is guaranteed.
 
+Future parser existed in earlier versions but had some bugs, wait till you hit 3.8.
+
 Rspec testing can be tricky, no lie. But it does not have to be. Start simple and grow from there. It is worth the effort.
+
+Catalog diffs can be useful for many people, but not all. Rspec tests might be all you need!
 ~~~ENDSECTION~~~
 
 
 
 <!SLIDE >
 
-# Example rspec tests
+# Rspec Tests
     @@@ Console nochrome
     $ cat spec/classes/apache_spec.rb
     require 'spec_helper'
@@ -74,6 +93,13 @@ Rspec testing can be tricky, no lie. But it does not have to be. Start simple an
       end
     end
 
+
+
+
+<!SLIDE >
+
+# Rspec Run
+    @@@ Console nochrome
     [rnelson0@build03 profile:production]$ bundle exec rspec spec/classes/apache_spec.rb
     profile::apache
       with defaults for all parameters
@@ -94,12 +120,13 @@ This is a test on a profile module, not a component module, but this is absolute
 
 # Refactor
 
-* Create a new branch against for the next stairstep version, e.g. `3.8.6`.
-* Test against this target version in addition to your current version, e.g. `~>3.6` and `~>3.8`.
-* Identify failing tests, refactor as needed.
+* Create a new branch for the target version, e.g. `3.8.6`
+* Test against current and target versions, e.g. `~>3.6` and `~>3.8`
+* Identify failing tests, refactor to fix
 * Upgrade modules as early as possible. Be aware of the required Puppet version for a module version, and look out for defunct or migrated modules, such as those transferred to [Vox Pupuli](https://voxpupuli.org/).
- * Version 999.999.999 means defunct (more later).
-* Move forward when tests are green for current and next version.
+ * Version 999.999.999 means defunct (more later)
+* Move forward when tests are green for current and next version
+
 
 
 
@@ -129,6 +156,7 @@ Remember to export the variable, or you will have to prepend PUPPET_GEM_VERSION 
 
 
 
+
 <!SLIDE incremental>
 
 # Replace the Master
@@ -153,15 +181,15 @@ There are many ways to bootstrap your master. If you do not have a process to bo
 
 # Snapshot and Upgrade the Master
 
-* Snapshot (or equivalent) the master, and any canary nodes we have.
-* Restrict access to the master. Do not push bad catalogs to nodes, could cause outages.
- * Use your firewall/load balancer to control access to the master.
- * Revoke certificates for non-canary nodes, roll the snapshot back to revert.
- * Revoke the CA, generate a new CA and new agent certs (low # nodes).
- * Disable puppet agent on nodes with orchestration, ensure it does not turn back on in the middle of your upgrade!
-* Upgrade the master.
-* Test the master and canary nodes with `puppet agent -t`.
-* Optional: Revert to snapshot, remove the block, and upgrade the master again without the block - only when you are ready to move forward.
+* Snapshot (or equivalent) the master and canary nodes
+* Restrict access to the master, prevent serving bad catalogs
+ * Control access with firewall/load balancer
+ * Revoke certificates for non-canary nodes
+ * Revoke the CA, generate a new CA and new agent certs (low # nodes)
+ * Disable puppet agent on nodes with orchestration
+* Upgrade the master
+* Test the master and canary nodes with `puppet agent -t`
+* Optional: Revert to snapshot, remove the block, and upgrade the master again without the block
 
 ~~~SECTION:notes~~~
 There is no right way, just a way that works for you!
@@ -171,16 +199,18 @@ Remember that --noop and canary tests will send reports to puppetdb. If your pup
 
 
 
+
 <!SLIDE incremental>
 
 # Troubleshooting
 
-* Collect logs from the master and canaries.
-* Revert your production environment to previous version (if applicable).
-* Analyze cause.
-* Refactor and remediate your code and data.
-* Try again.
-* Learn from failures and how to prevent them in the future - additional tests, better process, etc.
+* Collect logs from the master and canaries
+* Revert your production environment
+* Analyze cause
+* Refactor and remediate your code and data
+* Try again
+* Learn from failures, prevent them in the future
+
 
 
 
@@ -190,12 +220,12 @@ Remember that --noop and canary tests will send reports to puppetdb. If your pup
 
 A very non-comprehensive list of methods:
 
-* [puppetlabs/puppet_agent](https://forge.puppet.com/puppetlabs/puppet_agent) ([requirements](https://forge.puppet.com/puppetlabs/puppet_agent/readme#setup-requirements)) allows you to update agents on their next checkin.
-* MCollective or other orchestration.
-* Replace nodes with new instances running the newer agent.
-* By hand.
-* Some combination of methods.
-* You can often skip this step on PATCH versions and some MINOR versions (check release notes).
+* [puppetlabs/puppet_agent](https://forge.puppet.com/puppetlabs/puppet_agent) ([requirements](https://forge.puppet.com/puppetlabs/puppet_agent/readme#setup-requirements)) allows you to update agents on their next checkin
+* Orchestration
+* Replace nodes with new instances running the newer agent
+* By hand
+* Can often skip this step on PATCH versions and some MINOR versions (see release notes)
+
 
 
 
@@ -221,42 +251,46 @@ Puppet 4 is binary is in a new location, which makes it easy to know when the up
 
 
 
+
 <!SLIDE >
 
 # Repeat!
 
 * After you are done with one upgrade, start working on the next!
-* Repeat the Refactor / Snapshot / Upgrade steps only till you hit your target version.
+* Repeat the Refactor / Upgrade steps till you hit your target version
 
 
 
 <!SLIDE incremental >
 
-# Keep up
+# Keeping up
 
 <center><blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Software being &quot;Done&quot; is like lawn being &quot;Mowed&quot;.</p>&mdash; Jim Benson (@ourfounder) <a href="https://twitter.com/ourfounder/status/770075137332932608">August 29, 2016</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></center>
 
 Once you're done, you're not done! Refactor to take advantage of Puppet 4 language improvements, update to new tools (ex: r10k -> Code Manager for PE) and new file locations, etc.
 
-* PE has quarterly upgrades, POSS has more frequent updates.
+* PE has quarterly upgrades, POSS more frequent
 * The less frequently you do something, the more painful it us. Upgrade early and upgrade often!
-* Try not to get more than 2 MINORs behind.
-* Anticipate new versions by changing your Gemfile/rspec-tests to test against puppet version `~>4.0` (latest 4.x) and run `bundle update` before manual tests.
+* Try not to get more than 2 MINORs behind
+* Anticipate new versions by changing your Gemfile/rspec-tests to test against puppet version `~>4.0` (latest v4) and run `bundle update` before manual tests
+
+
+
 
 <!SLIDE incremental>
 
 # Puppet 4 Language Improvements
 
-* Replace `create_resources()` with [iteration](https://docs.puppet.com/puppet/latest/reference/lang_iteration.html).
-* Replace `validate_*()` with [data types](https://docs.puppet.com/puppet/latest/reference/lang_data.html).
- * There is a `validate_legacy()` helper function coming [Real Soon Now](https://github.com/puppetlabs/puppetlabs-stdlib/pull/639) to [puppetlabs/stdlib](https://forge.puppet.com/puppetlabs/stdlib), useful when replacing `validate_*()` functions.
-* Simplified resource wrappers with [*](https://docs.puppet.com/puppet/latest/reference/lang_resources_advanced.html#setting-attributes-from-a-hash) and [+](https://docs.puppet.com/puppet/latest/reference/lang_expressions.html#merging) operators.
-* Improved [per-expression default attributes](https://docs.puppet.com/puppet/latest/reference/lang_resources_advanced.html#per-expression-default-attributes).
-* New template type [EPP](https://docs.puppet.com/puppet/latest/reference/lang_template_epp.html) is available.
-* Puppet [Lookup](https://docs.puppet.com/puppet/4.6/reference/lookup_quick.html), [Data in modules](https://docs.puppet.com/puppet/latest/reference/lookup_quick_module.html), and other hiera improvements.
-* Use `$facts[]` instead of global variables to tidy up the namespace and remove ambiguity.
+* Replace `create_resources()` with [iteration](https://docs.puppet.com/puppet/latest/reference/lang_iteration.html)
+* Replace `validate_*()` with [data types](https://docs.puppet.com/puppet/latest/reference/lang_data.html)
+ * There is a `validate_legacy()` helper function coming [Real Soon Now](https://github.com/puppetlabs/puppetlabs-stdlib/pull/639) to [puppetlabs/stdlib](https://forge.puppet.com/puppetlabs/stdlib), useful when replacing `validate_*()` functions
+* Simplified resource wrappers with [*](https://docs.puppet.com/puppet/latest/reference/lang_resources_advanced.html#setting-attributes-from-a-hash) and [+](https://docs.puppet.com/puppet/latest/reference/lang_expressions.html#merging) operators
+* Improved [per-expression default attributes](https://docs.puppet.com/puppet/latest/reference/lang_resources_advanced.html#per-expression-default-attributes)
+* New template type [EPP](https://docs.puppet.com/puppet/latest/reference/lang_template_epp.html) is available
+* Puppet [Lookup](https://docs.puppet.com/puppet/4.6/reference/lookup_quick.html), [Data in modules](https://docs.puppet.com/puppet/latest/reference/lookup_quick_module.html), and other hiera improvements
+* Use `$facts[]` instead of global variables to tidy up the namespace and remove ambiguity
 
 ~~~SECTION:notes~~~
-Aim for master upgrade times of <1h - it's possible!
+Aim for master upgrade times of <1h - it is possible!
 ~~~ENDSECTION~~~
