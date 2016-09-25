@@ -1,6 +1,5 @@
 <!SLIDE center subsection>
 # Enjoying the Journey from Puppet 3.x to 4.x
-<center>(jfdi)</center>
 
 
 
@@ -27,7 +26,7 @@
 * Puppet 3 is really old! End Of Support on [December 31, 2016](https://puppet.com/misc/puppet-enterprise-lifecycle).
 * Puppet 4 language improvements (3.x - Future Parser).
 * Application Orchestration
- * PE first, FOSS eventually. Some free implementations (such as[choria](https://github.com/ripienaar/mcollective-choria)) out there.
+ * PE first, FOSS eventually. Some free implementations (such as [choria](https://github.com/ripienaar/mcollective-choria)) appearing.
 * Puppet 4 only modules.
 * No more EOL Ruby versions (1.8, 1.9, early 2.x) or Puppet w/Passenger!
 * Do not slow down the DevOps. Stairstep upgrades get harder and harder all the time, stay current.

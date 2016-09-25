@@ -87,3 +87,16 @@ Tools are constantly improving, check back frequently to see if your concerns ar
 * [puppetlabs_spec_helper](https://github.com/puppetlabs/puppetlabs_spec_helper), [rspec-puppet](https://github.com/rodjek/rspec-puppet/), and [puppet-lint](https://github.com/rodjek/puppet-lint/) are all improving their support for Puppet 4 on a regular basis.
 * A number of catalog diff tools (including [the diffs](https://forge.puppet.com/modules?utf-8=%E2%9C%93&sort=rank&q=catalog) and [a viewer](https://github.com/camptocamp/puppet-catalog-diff-viewer)) to inspect the actual catalog differences from active nodes across different versions of Puppet.
 
+
+
+
+<!SLIDE incremental>
+
+# Links
+
+Additional information on Puppet 4 and Migrations
+
+* [Whirlwind Tour of Puppet 4](http://www.slideshare.net/ripienaar/whirlwind-tour-of-puppet-4) by [R.I. Pienaar](https://twitter.com/ripienaar)
+* [The Power of Puppet 4](http://www.slideshare.net/tuxmea/power-of-puppet-4) by [Martin Alfke](https://twitter.com/tuxmea)
+* [Puppet - our journey from Puppet 3.8 to Puppet 4](http://hggh.github.io/puppet/debian/2016/08/19/puppet-4.x.html) by [Jonas Genannt](https://twitter.com/hggh_)
+
