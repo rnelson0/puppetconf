@@ -1,0 +1,46 @@
+#preso,
+.slide {
+  background: #212121;
+  width: 1280px !important;
+  //height: 960px !important;
+}
+.content {
+  color: #FFAD1A;
+  font-family: helvetica, arial;
+}
+h1, h2 {
+  color: #FFAD1A;
+  font-family: Georgia;
+}
+a {
+  color: #FFAD1A;
+}
+.content::after {
+  position: absolute;
+  right: -222px;
+  bottom: -200px;
+  //content: url(dag.png);
+  transform: scale(.2);
+  display: inline-block;
+}
+code {
+  background-color: gray;
+}
+
+/* Render hidden headlines so that when we print with wkhtmltopdf, we can use section
+   titles for page headers.  it would make sense to put this in the print section, but
+   then you get a weird double headline when previewing a print in the browser. */
+
+/* make this invisible as possible, while still rendering so that wkhtmltopdf doesn't ignore it */
+h1.section_title {
+  color: transparent !important;
+  opacity: 0 !important;
+  font-size: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* because the above section headers are h1 elements rendered only in print */
+.content:not(.cover) h1:not(.section_title) {
+  border-bottom: 3px solid #222;
+}

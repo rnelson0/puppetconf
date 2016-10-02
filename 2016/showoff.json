@@ -1,0 +1,17 @@
+{
+  "name": "PuppetConf 2016",
+  "description": "Enjoying the Journey from Puppet 3.x to 4.x",
+  "protected": [
+    "presenter"
+  ],
+  "user": "rnelson0",
+  "password": "puppetconf",
+  "sections": [
+    "Intro/intro.md",
+    "Blueprint/blueprint.md",
+    "Details/details.md",
+    "Tricks_and_Tools/tricks_and_tools.md",
+    "Wrapup/wrapup.md"
+  ],
+  "edit": "https://github.com/rnelson0/puppetconf/edit/showoff/2016/"
+}
