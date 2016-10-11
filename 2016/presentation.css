@@ -1,30 +1,57 @@
-#preso,
-.slide {
-  background: #212121;
-  width: 1280px !important;
-  //height: 960px !important;
+body {
+  background: #222222;
+  color: #f2f2f2;
+  background-image: url(dag.png);
+  background-repeat: no-repeat;
+  background-position: bottom right;
+  background-size: 20%;
 }
-.content {
-  color: #FFAD1A;
+
+a { 
+  color: #ffae1a;
+  text-decoration: none;
+}
+
+h1, 
+h2 { 
+  font-family: Georgia; 
+}
+
+.content { 
   font-family: helvetica, arial;
 }
-h1, h2 {
-  color: #FFAD1A;
-  font-family: Georgia;
+
+code { 
+  background-color: #4e4e4e; 
 }
-a {
-  color: #FFAD1A;
+
+pre.highlight code.language-console {
+  box-shadow: none;
 }
-.content::after {
-  position: absolute;
-  right: -222px;
-  bottom: -200px;
-  //content: url(dag.png);
-  transform: scale(.2);
-  display: inline-block;
+
+#preso,
+.slide {
+  background: transparent;
+  width: 1280px;
+  height: 960px;
+  margin: 0 auto;
 }
-code {
-  background-color: gray;
+
+#hamburger {
+  color: #ffffff;
+  opacity: .25;
+}
+
+#hamburger:hover,
+#hamburger.highlight,
+.buttonWrapper:hover, 
+.submenu a:hover, 
+.submenu .highlighted a {
+  background-color: #ffae1a;
+}
+
+#feedbackSidebar {
+  background: #2e2e2e;
 }
 
 /* Render hidden headlines so that when we print with wkhtmltopdf, we can use section
